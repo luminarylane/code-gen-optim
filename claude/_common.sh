@@ -31,16 +31,6 @@ get_context_name() {
     fi
 }
 
-# require_proxy <port> — LiteLLM-routed launchers only.
-require_proxy() {
-  local port="$1"
-  if ! nc -z localhost "$port"; then
-    echo "❌ litellm is not running." >&2
-    echo "clone litellm-proxy repo (https://github.com/luminarylane/litellm-proxy), configure .env from .env.docker.example, then run ./run.sh docker and try again." >&2
-    exit 1
-  fi
-  echo "✅ litellm proxy is running and listening on port $port."
-}
 
 # export_plumbing_env — backend-agnostic env only. Cost-neutral or universally
 # safe. NOTE: MAX_MCP_OUTPUT_TOKENS is intentionally NOT set here — each launcher
