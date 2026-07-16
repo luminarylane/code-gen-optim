@@ -39,10 +39,10 @@ Copy the bundle you want next to (not over) the target repo's own `scripts/`:
 ```bash
 cd ~/Developer/my-project
 mkdir -p .claude
-cp -R ~/Developer/code-gen-optim/claude .claude/litellm-launchers   # or wherever you keep tools
+cp -R ~/Developer/code-gen-optim/claude .claude/code-gen-launchers   # or wherever you keep tools
 
 # start the model selector in a tmux workspace
-.claude/litellm-launchers/start-tmux.sh my-project
+.claude/code-gen-launchers/start-tmux.sh my-project
 ```
 
 The target repo must provide `.mcp.json`. Launchers resolve sibling scripts from their own directory while keeping the target repo as the working directory, so `.mcp.json` and `CLAUDE_PROJECT_DIR` stay scoped correctly.
