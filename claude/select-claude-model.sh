@@ -48,10 +48,10 @@ echo "  through Claude Code."
 echo
 echo "  [q] Quit"
 echo
-read -r -p "Choose model [1-4]: " choice
+read -r -p "Choose model [1-4, Enter=Claude]: " choice
 
 case "$choice" in
-  1)
+  ""|1)
     echo "▶ Starting Claude family (native)..."
     choose_profile
     echo "▶ Work mode: $CLAUDE_PROFILE"
