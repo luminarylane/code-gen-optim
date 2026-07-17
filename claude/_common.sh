@@ -36,9 +36,15 @@ get_context_name() {
 # safe. NOTE: MAX_MCP_OUTPUT_TOKENS is intentionally NOT set here — each launcher
 # picks its own cap (tighter on cacheless proxied backends).
 export_plumbing_env() {
-  # Umbrella flag: covers telemetry, bug-report, error-report, autoupdater.
-  # Replaces the four individual DISABLE_* flags the launchers used to set.
-  export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+  # Umbrella flag: covers telemetry, bug-report, error-report, autoupdater, and
+  # feature-flag fetches. This is NON-INFERENCE traffic only — it costs zero model
+  # tokens, so it does NOT protect the 5h/7d usage runway. Left ON it can starve
+  # Remote Control's eligibility check, so default it OFF. Opt back in for a
+  # locked-down / offline run with CLAUDE_LEAN_TRAFFIC=1.
+  # (The real token saver is DISABLE_NON_ESSENTIAL_MODEL_CALLS below, kept on.)
+  if [[ "${CLAUDE_LEAN_TRAFFIC:-0}" == "1" ]]; then
+    export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+  fi
   # Suppress billed side model calls (flavor text, auto summaries) — a real,
   # small token saver, distinct from the traffic umbrella above.
   export DISABLE_NON_ESSENTIAL_MODEL_CALLS=1
