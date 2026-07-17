@@ -24,7 +24,10 @@ require_mcp_json() {
 get_context_name() {
     # 1. Try tmux
     if [ -n "${TMUX:-}" ]; then
-        tmux display-message -p '#S'
+        # 2>/dev/null || true: a stale/forwarded $TMUX (dead server, SSH, detached)
+        # makes tmux exit non-zero; without this guard `CONTEXT_NAME=$(get_context_name)`
+        # trips set -e in the launchers and aborts before exec claude.
+        tmux display-message -p '#S' 2>/dev/null || true
     # 2. If not tmux, try git
     elif git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
         basename "$(git rev-parse --show-toplevel)"
