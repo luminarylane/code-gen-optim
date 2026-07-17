@@ -114,5 +114,5 @@ exec claude \
   --model "$CLAUDE_MODEL" \
   --effort "$EFFORT_LEVEL" \
   ${advisor_args[@]+"${advisor_args[@]}"} \
-  --name="Anthropic Claude" \
+  --name="Anthropic-Claude-${CONTEXT_NAME:-UnknownContext}" \
   ${remote_control_args[@]+"${remote_control_args[@]}"}
