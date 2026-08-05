@@ -59,4 +59,5 @@ export_plumbing_env() {
   export CLAUDE_CODE_NO_FLICKER=1
   export MCP_CONNECTION_NONBLOCKING=true
   export CLAUDE_PROJECT_DIR="$(pwd)"
+  export CLAUDE_CODE_ENABLE_TASKS=1
 }

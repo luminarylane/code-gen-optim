@@ -38,17 +38,17 @@ echo "╚═══════════════════════�
 echo
 echo "  [1] Claude       1M  • Best subscription value; hardest work"
 echo "      Opus / Sonnet / Haiku family (native, caching works)"
-echo "  [2] Kimi Coding Plan    262k • Direct Kimi; not LiteLLM-metered"
-echo "  [3] Z.ai GLM-5.2  1M • Direct Z.ai; all Claude tiers map to GLM-5.2"
-echo "  [4] Z.ai GLM-4.7  200k • Direct Z.ai; all Claude tiers map to GLM-4.7"
+echo "  [2] Z.ai GLM-5.2  1M • Direct Z.ai; all Claude tiers map to GLM-5.2"
+echo "  [3] Z.ai GLM-4.7  200k • Direct Z.ai; all Claude tiers map to GLM-4.7"
 echo
-echo "  For GPT use OpenAI Codex (run: codex) and for Gemini use Google"
+echo "  For GPT use OpenAI Codex (run: codex),"
+echo "  For Kimi use Kimi CLI (run: kimi) and for Gemini use Google"
 echo "  Antigravity (run: agy) directly — their own native agents, not routed"
 echo "  through Claude Code."
 echo
 echo "  [q] Quit"
 echo
-read -r -p "Choose model [1-4, Enter=Claude]: " choice
+read -r -p "Choose model [1-3, Enter=Claude]: " choice
 
 case "$choice" in
   ""|1)
@@ -58,14 +58,10 @@ case "$choice" in
     CLAUDE_PROFILE="$CLAUDE_PROFILE" "$SCRIPT_DIR/start-claude-claude.sh"
     ;;
   2)
-    echo "▶ Starting Kimi Coding Plan (direct)..."
-    exec "$SCRIPT_DIR/start-claude-kimi.sh"
-    ;;
-  3)
     echo "▶ Starting Z.ai GLM-5.2 (direct)..."
     exec "$SCRIPT_DIR/start-claude-glm-5-2.sh"
     ;;
-  4)
+  3)
     echo "▶ Starting Z.ai GLM-4.7 (direct, short 200k-context sessions)..."
     exec "$SCRIPT_DIR/start-claude-glm-4-7.sh"
     ;;
@@ -73,7 +69,7 @@ case "$choice" in
     exit 0
     ;;
   *)
-    echo "❌ Invalid model. Choose 1-4, or q to quit." >&2
+    echo "❌ Invalid model. Choose 1-3, or q to quit." >&2
     exit 1
     ;;
 esac

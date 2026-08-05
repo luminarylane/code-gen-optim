@@ -63,4 +63,4 @@ exec claude \
   --permission-mode=bypassPermissions \
   --mcp-config ./.mcp.json \
   --effort "$EFFORT_LEVEL" \
-  --name="ZAI-GLM-5.2-${CONTEXT_NAME:-UnknownContext}"
+  --name="ZAI-$ANTHROPIC_MODEL-${CONTEXT_NAME:-UnknownContext}"

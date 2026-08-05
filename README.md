@@ -8,11 +8,13 @@ The guiding principle is **right tool, right job, no wasted tokens redoing work*
 
 - `claude/` — Claude Code launchers:
   - `start-claude-claude.sh` — native Anthropic (claude.ai). Prompt caching works here, so the launcher **protects the cache** and drives cost via model tier + reasoning effort.
-  - `start-claude-kimi.sh`, `start-claude-glm-5-2.sh`, `start-claude-glm-4-7.sh` — direct Kimi / Z.ai Coding Plan endpoints (Anthropic-compatible), not metered through any proxy.
-  - `select-claude-model.sh`, `start-tmux.sh` — model/work-mode picker and a tmux workspace.
+  - `start-claude-glm-5-2.sh`, `start-claude-glm-4-7.sh` — direct Z.ai Coding Plan endpoints (Anthropic-compatible), not metered through any proxy.
+  - `select-model.sh` — Claude family and work-mode picker.
 - `codex/` — OpenAI Codex launchers:
   - `start-codex-gpt-5-6.sh`, `start-codex-gpt-5-4.sh` — GPT families, native caching, no bridge.
-  - `select-codex-model.sh` — family + work-mode picker.
+  - `select-model.sh` — family + work-mode picker.
+- `kimi/` — native Kimi CLI launchers and a model-family picker.
+- `tmux/` — a mixed-agent tmux workspace launcher and agent-family picker.
 - `_common.sh` (one per bundle) — shared checks and plumbing only; no cost levers (those differ per backend and live in each launcher).
 
 ## Work modes
@@ -39,10 +41,11 @@ Copy the bundle you want next to (not over) the target repo's own `scripts/`:
 ```bash
 cd ~/Developer/my-project
 mkdir -p .claude
-cp -R ~/Developer/code-gen-optim/claude .claude/code-gen-launchers   # or wherever you keep tools
+mkdir -p .claude/code-gen-launchers
+cp -R ~/Developer/code-gen-optim/{claude,codex,kimi,tmux} .claude/code-gen-launchers/
 
 # start the model selector in a tmux workspace
-.claude/code-gen-launchers/start-tmux.sh my-project
+.claude/code-gen-launchers/tmux/start-tmux.sh my-project
 ```
 
 The target repo must provide `.mcp.json`. Launchers resolve sibling scripts from their own directory while keeping the target repo as the working directory, so `.mcp.json` and `CLAUDE_PROJECT_DIR` stay scoped correctly.
@@ -60,8 +63,7 @@ Browser work uses the [agent-browser](https://agent-browser.dev/) CLI (compact ~
 ## Validation
 
 ```bash
-bash -n claude/*.sh
-bash -n codex/*.sh
+bash -n claude/*.sh codex/*.sh kimi/*.sh tmux/*.sh
 ```
 
 Launchers target macOS `/bin/bash` (3.2), so empty-array expansions use the `${arr[@]+"${arr[@]}"}` guard.
