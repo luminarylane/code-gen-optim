@@ -11,7 +11,7 @@ The guiding principle is **right tool, right job, no wasted tokens redoing work*
   - `start-claude-glm-5-2.sh`, `start-claude-glm-4-7.sh` — direct Z.ai Coding Plan endpoints (Anthropic-compatible), not metered through any proxy.
   - `select-model.sh` — Claude family and work-mode picker.
 - `codex/` — OpenAI Codex launchers:
-  - `start-codex-gpt-5-6.sh`, `start-codex-gpt-5-4.sh` — GPT families, native caching, no bridge.
+  - `start-codex-gpt-6.sh` (default), `start-codex-gpt-5-6.sh`, `start-codex-gpt-5-4.sh` — GPT families, native caching, no bridge.
   - `select-model.sh` — family + work-mode picker.
 - `kimi/` — native Kimi CLI launchers and a model-family picker.
 - `tmux/` — a mixed-agent tmux workspace launcher and agent-family picker.
@@ -22,7 +22,9 @@ The guiding principle is **right tool, right job, no wasted tokens redoing work*
 Each bundle's selector prompts for a work mode; `CLAUDE_PROFILE` / `CODEX_PROFILE` (`fast` / `default` / `deep`) maps to model tier + reasoning effort:
 
 - **Claude native** — `fast`: Sonnet + low effort · `default`: **Opus Plan Mode** (`opusplan` — Opus plans, Sonnet executes) + medium · `deep`: flat Opus + high. Cache protected via `--exclude-dynamic-system-prompt-sections`; auto-compaction left at default (forcing early compaction burns the warm cache).
-- **Codex** — `fast`: cheapest tier + low · `default`: mid tier + medium · `deep`: flagship + high. Native OpenAI prompt caching applies automatically.
+- **Codex** — GPT-6 by default: `fast`: Luna + low · `default`: Sol + medium · `deep`: Astra + high. Older families remain selectable. Native OpenAI prompt caching applies automatically.
+
+The tmux agent picker also defaults to Codex, so pressing Enter through all three prompts starts GPT-6 Sol at medium effort.
 
 `MAX_THINKING_TOKENS` is deliberately never set — adaptive-thinking models (Opus 4.8+) ignore it; `--effort` / `CLAUDE_CODE_EFFORT_LEVEL` is the live reasoning dial.
 

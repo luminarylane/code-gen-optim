@@ -10,20 +10,20 @@ echo "║                  CODING    AGENT    SELECTOR                 ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo
 echo "  [1] Claude Family"
-echo "  [2] Codex Family"
+echo "  [2] Codex Family  [default: GPT-6 Sol, medium]"
 echo "  [3] Kimi  Family"
 echo "  [4] Gemini  Family"
 echo
 echo "  [q] Quit"
 echo
-read -r -p "Choose model [1-4, Enter=Claude]: " choice
+read -r -p "Choose agent [1-4, Enter=Codex]: " choice
 
 case "$choice" in
-  ""|1)
+  1)
     echo "▶ Starting Claude Family ..."
     exec "$REPO_ROOT/claude/select-model.sh"
     ;;
-  2)
+  ""|2)
     echo "▶ Starting Codex Family ..."
     exec "$REPO_ROOT/codex/select-model.sh"
     ;;
