@@ -13,7 +13,7 @@ choose_profile() {
   echo "  [1] Fast      Quick edits, searches, trivial fixes"
   echo "               Cheapest tier + low reasoning"
   echo "  [2] Balanced  Everyday implementation and debugging  [default]"
-  echo "               Mid tier + medium reasoning"
+  echo "               GPT-6 Sol + medium reasoning by default"
   echo "  [3] Deep      Architecture, hard bugs, broad reviews"
   echo "               Flagship tier + high reasoning"
   echo
@@ -34,21 +34,23 @@ echo "╔═══════════════════════�
 echo "║                    CODEX • MODEL SELECTOR                    ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo
-echo "  [1] GPT-5.6   stronger family (sol / terra / luna)"
-echo "  [2] GPT-5.4   leaner, token-thrifty family (5.5 / 5.4 / 5.4-mini)"
+echo "  [1] GPT-6     current family (astra / sol / luna)  [default]"
+echo "  [2] GPT-5.6   previous family (sol / terra / luna)"
+echo "  [3] GPT-5.4   leaner family (5.5 / 5.4 / 5.4-mini)"
 echo
 echo "  Native GPT via OpenAI Codex — caching works, no LiteLLM bridge."
 echo
 echo "  [q] Quit"
 echo
-read -r -p "Choose family [1-2]: " choice
+read -r -p "Choose family [1-3, Enter=GPT-6]: " choice
 
 case "$choice" in
-  1) LAUNCHER="start-codex-gpt-5-6.sh" ;;
-  2) LAUNCHER="start-codex-gpt-5-4.sh" ;;
+  ""|1) LAUNCHER="start-codex-gpt-6.sh" ;;
+  2) LAUNCHER="start-codex-gpt-5-6.sh" ;;
+  3) LAUNCHER="start-codex-gpt-5-4.sh" ;;
   q|Q) exit 0 ;;
   *)
-    echo "❌ Invalid choice. Choose 1, 2, or q." >&2
+    echo "❌ Invalid choice. Choose 1, 2, 3, or q." >&2
     exit 1
     ;;
 esac

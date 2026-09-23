@@ -31,7 +31,7 @@ if [[ -z "$TMUX_SESSION_NAME" ]]; then
 fi
 echo "✅ TMUX_SESSION_NAME=$TMUX_SESSION_NAME"
 
-tmux new-session -d -s "$TMUX_SESSION_NAME" -n claude
+tmux new-session -d -s "$TMUX_SESSION_NAME" -n codex
 
 tmux set -g pane-border-status top
 tmux set -g pane-border-format " [ #P | #{pane_title} ] "
@@ -42,7 +42,7 @@ tmux split-window -h -t "$TMUX_SESSION_NAME":1
 tmux select-layout -t "$TMUX_SESSION_NAME":1 main-vertical
 tmux resize-pane -t "$TMUX_SESSION_NAME":1.2 -L 80
 tmux select-pane -t "$TMUX_SESSION_NAME":1.1 -T "Notes/Scratch"
-tmux select-pane -t "$TMUX_SESSION_NAME":1.2 -T "Claude Code"
+tmux select-pane -t "$TMUX_SESSION_NAME":1.2 -T "Codex"
 
 tmux send-keys -t "$TMUX_SESSION_NAME":1.1 "vim ~/scratch.$TMUX_SESSION_NAME.md" Enter
 tmux send-keys -t "$TMUX_SESSION_NAME":1.2 "TMUX_SESSION_NAME=$(printf '%q' "$TMUX_SESSION_NAME") $(printf '%q' "$SCRIPT_DIR/select-agent.sh")" Enter
